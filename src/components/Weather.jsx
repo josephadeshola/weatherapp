@@ -1,16 +1,25 @@
 import React, { useState } from "react";
 import video from "../components/clouds_-_16011 (1080p).mp4";
 import axios from "axios";
-
 const Weather = () => {
   const [city, setCity] = useState("");
   const [wed, setWed] = useState(null);
- 
+  const [set, setSet] = useState('')
+  const months = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+  ];
+  const current = new Date()
+  const date = `${current.getDate()}-${months[current.getMonth()]}-${current.getFullYear()}`;
+  setTimeout(()=>{
+    setSet(current.toLocaleString())
+ },1000);
+
+  console.log(date);
+  console.log(set);
   const FetchData = () => {
     let endPoint = "6a799a3c98711910ee49517e86cd8736";
     let search = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${endPoint}`;
-    let date = new Date()
-    console.log(date);
     axios
       .get(search)
       .then((res) => {
@@ -32,26 +41,34 @@ const Weather = () => {
         >
           <source src={video} type="video/mp4" />
         </video>
-        <div className=" bg-transparent relative md:flex px-5 py-5">
+        <div className=" bg-transparent relative md:flex px-5 ">
+        <div className="grid-rows-1">
           <div className="md:gap-2 md:flex ">
             <input
               type="text"
               value={city}
               onChange={(e) => setCity(e.target.value)}
               placeholder="Input location"
-              className="text-white border-b-2  border-b-amber-400   px-2 focus:border:none h-[40px] w-1/1 rounded bg-zinc-600"
+              className="text-white border-b-2  border-b-amber-400  mt-3 px-2 focus:border:none h-[40px] w-1/1 rounded bg-zinc-600"
             />
             <button
               onClick={FetchData}
               class=" text-white px-3  hover:bg-gray-200 hover:text-amber-400 ms-md-0 ms-2 py-1 bg-zinc-600 border-0  focus:outline-none rounded "
             >
               fetch data
-            </button>
+            </button> 
           </div>
+          <div>
+            <h1 className="text-white text-2xl mt-3 font-bold">Date:</h1>
+            <h1 className=" text-amber-400 text-2xl font-extrabold">{date},<br /> {set}</h1>
+            </div>
+            </div>
+           
         </div>
+
         {wed && (
        
-          <div className="md:flex md:mt-[10px]  px-3 gap-[20pc]">
+          <div className="md:flex px-3 gap-[20pc]">
             <div style={{color:"yellow"}} className="  px-5 md:w-[140pc] mt-[50px] text-center   shadow-amber-300 shadow-md  backdrop-blur-xl rounded relative h-[45vh]">
               <span className="text-9xl text-yellow-300 mt-[100px] font-mono">
                 {Math.round(wed.main.temp - 273)}℃
@@ -65,9 +82,9 @@ const Weather = () => {
               </div>
             </div>
 
-            <div className=" relative backdrop-blur-xl shadow-gray-300 md:w-[170pc] text-white shadow-xl rounded-xl h-[84vh]">
+            <div className=" relative backdrop-blur-xl shadow-gray-300 md:w-[170pc]  mt-2 md:-mt-20 text-white shadow-xl rounded-xl h-[84vh]">
               <div className="">
-                <h4 className="text-center mt-2 text-base ">Weather Details</h4>
+                <h4 className="text-center  text-base ">Weather Details</h4>
                 <div className="flex justify-between mt-5  px-4 py-3 text-light">
                   <span>Location</span>
                   <p id="cityName">{wed.name}</p>
