@@ -5,7 +5,7 @@ import axios from "axios";
 const Weather = () => {
   const [city, setCity] = useState("");
   const [wed, setWed] = useState(null);
-
+ 
   const FetchData = () => {
     let endPoint = "6a799a3c98711910ee49517e86cd8736";
     let search = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${endPoint}`;
@@ -39,7 +39,7 @@ const Weather = () => {
               value={city}
               onChange={(e) => setCity(e.target.value)}
               placeholder="Input location"
-              className="text-white border-b-2 border-b-amber-400  px-2 focus:border:none h-[40px] w-1/1 rounded bg-zinc-600"
+              className="text-white border-b-2  border-b-amber-400   px-2 focus:border:none h-[40px] w-1/1 rounded bg-zinc-600"
             />
             <button
               onClick={FetchData}
@@ -50,6 +50,7 @@ const Weather = () => {
           </div>
         </div>
         {wed && (
+       
           <div className="md:flex md:mt-[10px]  px-3 gap-[20pc]">
             <div style={{color:"yellow"}} className="  px-5 md:w-[140pc] mt-[50px] text-center   shadow-amber-300 shadow-md  backdrop-blur-xl rounded relative h-[45vh]">
               <span className="text-9xl text-yellow-300 mt-[100px] font-mono">
@@ -57,7 +58,7 @@ const Weather = () => {
               </span>
               <div className="text-white mt-5">
                 <div className="text-xl font-bold">{wed.name}</div>
-                <div className="text-xl font-semibold py-3">broken clouds</div>
+                <div className="text-xl font-semibold py-3">{}</div>
                 <div className="text-2xl font-bold">
                   {/* Current Location: <br /> Ogbomoso 25℃ */}
                 </div>
